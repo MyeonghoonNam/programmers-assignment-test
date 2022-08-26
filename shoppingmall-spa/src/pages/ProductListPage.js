@@ -1,60 +1,39 @@
+import { ProductList } from '../components/index.js';
+import { getProductList } from '../api/fetchProductList.js';
+import { store } from '../store/store.js';
+
 const ProductListPage = () => {
+	const COMPONENTS = {
+		ProductList: ProductList(),
+	};
+
+	const fetchData = async () => {
+		const productList = await getProductList();
+		store.setState({ productList });
+	};
+
 	const render = (target) => {
 		const $container = target.cloneNode();
-		$container.innerHTML = `
-      <div class="ProductListPage">
-        <h1>상품목록</h1>
-        <ul>
-          <li class="Product" data-id="1">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-          <li class="Product" data-id="2">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-          <li class="Product" data-id="3">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-          <li class="Product" data-id="4">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-          <li class="Product" data-id="5">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-          <li class="Product" data-id="6">
-            <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-            <div class="Product__info">
-              <div>커피잔</div>
-              <div>10,000원~</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    `;
+
+		const $productListPage = document.createElement('div');
+		$productListPage.setAttribute('class', 'ProductListPage');
+
+		const $header = document.createElement('h1');
+		$header.innerText = '상품목록';
+
+		const $productList = COMPONENTS.ProductList();
+
+		$productListPage.appendChild($header);
+		$productListPage.appendChild($productList);
+
+		$container.appendChild($productListPage);
 
 		return $container;
 	};
 
-	return (target) => {
+	return async (target) => {
+		await fetchData();
+
 		const $productListPage = render(target);
 		return $productListPage;
 	};

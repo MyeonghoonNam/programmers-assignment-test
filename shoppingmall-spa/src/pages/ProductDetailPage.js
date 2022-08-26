@@ -1,4 +1,14 @@
+import { store } from '../store/store.js';
+import { getProductItem } from '../api/fetchProductItem.js';
+
 const ProductDetailPage = () => {
+	const fetchData = async () => {
+		const [, , , productId] = window.location.pathname.split('/');
+		const productItem = await getProductItem(productId);
+
+		store.setState({ productItem });
+	};
+
 	const render = (target) => {
 		const $container = target.cloneNode();
 		$container.innerHTML = `
@@ -36,9 +46,11 @@ const ProductDetailPage = () => {
 		return $container;
 	};
 
-	return (target) => {
-		const $productListPage = render(target);
-		return $productListPage;
+	return async (target) => {
+		await fetchData();
+
+		const $productDetailPage = render(target);
+		return $productDetailPage;
 	};
 };
 

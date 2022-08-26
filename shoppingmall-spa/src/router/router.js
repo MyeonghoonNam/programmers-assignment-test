@@ -9,7 +9,7 @@ const Router = (routes) => {
 		const $element = getClosestElement(e.target, 'li');
 
 		if ($element?.className === 'Product') {
-			const productId = $element.dataset.id;
+			const { productId } = $element.dataset;
 
 			store.setState();
 			routePush(`/web/products/${productId}`);

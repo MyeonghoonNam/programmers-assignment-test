@@ -45,4 +45,6 @@ const get = async (url, headers) => {
 	return response.data;
 };
 
-export { get };
+export default {
+	get,
+};

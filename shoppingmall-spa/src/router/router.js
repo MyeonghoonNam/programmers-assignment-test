@@ -16,10 +16,10 @@ const Router = (routes) => {
 		}
 	});
 
-	window.onpopstate = () => {
+	window.addEventListener('popstate', () => {
 		store.setState();
 		routing(window.location.pathname, 'Routing');
-	};
+	});
 
 	const routePush = (pathname) => {
 		window.history.pushState({}, null, pathname);

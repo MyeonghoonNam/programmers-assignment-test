@@ -1,4 +1,6 @@
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+	personalInfo: [],
+};
 
 const reducer = (state, action) => {
 	if (!action) {

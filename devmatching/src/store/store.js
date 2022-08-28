@@ -4,6 +4,7 @@ import getCloneDeepObject from '../utils/getCloneDeepObject.js';
 const createStore = () => {
 	const listeners = [];
 	let state = reducer();
+	let init = true;
 
 	const subscribe = (listener) => {
 		listeners.push(listener);
@@ -17,6 +18,11 @@ const createStore = () => {
 	const dispatch = (action) => {
 		const newState = reducer(state, action);
 		state = newState;
+
+		if (init) {
+			init = false;
+		}
+
 		publish();
 	};
 
@@ -25,6 +31,7 @@ const createStore = () => {
 	const setState = (payload) => {
 		if (!payload) {
 			state = reducer();
+			init = true;
 			return;
 		}
 
@@ -36,17 +43,21 @@ const createStore = () => {
 			if (!state[key]) return;
 		}
 
+		init = false;
 		state = {
 			...state,
 			...payload,
 		};
 	};
 
+	const isEmpty = () => !!init;
+
 	return {
 		subscribe,
 		dispatch,
 		getState,
 		setState,
+		isEmpty,
 	};
 };
 

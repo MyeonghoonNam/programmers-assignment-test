@@ -29,6 +29,7 @@ const request = async (params) => {
 
 		throw new Error('API 통신 오류');
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.log(e.message);
 		return false;
 	}

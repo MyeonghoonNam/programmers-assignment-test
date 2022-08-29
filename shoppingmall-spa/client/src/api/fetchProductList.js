@@ -1,7 +1,6 @@
 import api from './api.js';
 
-const BASE_URL =
-	'https://uikt6pohhh.execute-api.ap-northeast-2.amazonaws.com/dev/products';
+const BASE_URL = 'http://localhost:8080/products';
 
 const HEADERS = {
 	'Content-Type': 'application/json',

@@ -1,4 +1,3 @@
-import { store } from '../../store/store.js';
 import getNumberWithCommas from '../../utils/getNumberWithCommas.js';
 
 const ProductList = () => {
@@ -22,9 +21,7 @@ const ProductList = () => {
 		return $productList;
 	};
 
-	return () => {
-		const state = store.getState();
-
+	return (state) => {
 		const $productList = render(state);
 		return $productList;
 	};

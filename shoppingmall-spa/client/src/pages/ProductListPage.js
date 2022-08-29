@@ -12,7 +12,7 @@ const ProductListPage = () => {
 		store.setState({ productList });
 	};
 
-	const render = (target) => {
+	const render = ({ target, productList }) => {
 		const $container = target.cloneNode();
 
 		const $productListPage = document.createElement('div');
@@ -21,7 +21,7 @@ const ProductListPage = () => {
 		const $header = document.createElement('h1');
 		$header.innerText = '상품목록';
 
-		const $productList = COMPONENTS.ProductList();
+		const $productList = COMPONENTS.ProductList({ productList });
 
 		$productListPage.appendChild($header);
 		$productListPage.appendChild($productList);
@@ -34,7 +34,8 @@ const ProductListPage = () => {
 	return async (target) => {
 		await fetchData();
 
-		const $productListPage = render(target);
+		const { productList } = store.getState();
+		const $productListPage = render({ target, productList });
 		return $productListPage;
 	};
 };

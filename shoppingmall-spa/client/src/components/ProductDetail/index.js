@@ -1,5 +1,5 @@
-import { ProductSelectedOptions } from '../index.js';
-import getNumberWithCommas from '../../utils/getNumberWtihCommas.js';
+import ProductSelectedOptions from './ProductSelectedOptions/index.js';
+import getNumberWithCommas from '../../utils/getNumberWithCommas.js';
 
 const ProductDetail = () => {
 	const COMPONENTS = {

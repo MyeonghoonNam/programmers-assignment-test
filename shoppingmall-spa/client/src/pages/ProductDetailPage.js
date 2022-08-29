@@ -22,9 +22,9 @@ const ProductDetailPage = () => {
 		const { name } = productItem;
 
 		const $header = document.createElement('h1');
-		$header.innerText = name;
+		$header.innerText = `${name} 상품 정보`;
 
-		const $productDetail = COMPONENTS.ProductDetail(productItem);
+		const $productDetail = COMPONENTS.ProductDetail({ productItem });
 
 		$productDetailPage.appendChild($header);
 		$productDetailPage.appendChild($productDetail);

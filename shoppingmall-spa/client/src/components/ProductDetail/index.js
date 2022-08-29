@@ -6,7 +6,13 @@ const ProductDetail = () => {
 		ProductSelectedOptions: ProductSelectedOptions(),
 	};
 
-	const render = (productItem) => {
+	const handleChangeSelect = () => {};
+
+	const bindEvents = (target) => {
+		target.addEventListener('change', handleChangeSelect);
+	};
+
+	const render = ({ productItem }) => {
 		const $productDetail = document.createElement('div');
 		$productDetail.setAttribute('class', 'ProductDetail');
 		$productDetail.innerHTML = `
@@ -29,16 +35,19 @@ const ProductDetail = () => {
 				)}
         </select>
     `;
-
 		const $productSelectedOptions = COMPONENTS.ProductSelectedOptions();
 
-		$productDetail.appendChild($productSelectedOptions);
+		$productDetail
+			.querySelector('.ProductDetail__info')
+			.appendChild($productSelectedOptions);
 
 		return $productDetail;
 	};
 
-	return (productItem) => {
-		const $productDetail = render(productItem);
+	return (state) => {
+		const $productDetail = render(state);
+		bindEvents($productDetail);
+
 		return $productDetail;
 	};
 };

@@ -1,4 +1,7 @@
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+	productList: [],
+	productItem: {},
+};
 
 const reducer = (state, action) => {
 	if (!action) {

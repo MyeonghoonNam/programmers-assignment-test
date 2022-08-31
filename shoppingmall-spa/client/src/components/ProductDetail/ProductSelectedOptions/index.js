@@ -31,11 +31,13 @@ const ProductSelectedOptions = () => {
 		const $element = e.target;
 
 		if ($element.tagName === 'INPUT') {
-			const optionId = Number($element.dataset.optionid);
-			const nextQuantity = Number($element.value);
+			const payload = {
+				optionId: Number($element.dataset.optionid),
+				nextQuantity: Number($element.value),
+			};
 
 			if (typeof nextQuantity === 'number') {
-				store.dispatch(changeProductQuantity({ optionId, nextQuantity }));
+				store.dispatch(changeProductQuantity(payload));
 			}
 		}
 	};

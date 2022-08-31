@@ -10,7 +10,7 @@ const createStore = () => {
 	};
 
 	const publish = () => {
-		const payload = Object.freeze(getCloneDeepObject(state));
+		const payload = Object.freeze(state);
 		listeners.forEach((listener) => listener(payload));
 	};
 
@@ -36,10 +36,10 @@ const createStore = () => {
 			if (!state[key]) return;
 		}
 
-		state = {
+		state = getCloneDeepObject({
 			...state,
 			...payload,
-		};
+		});
 	};
 
 	return {

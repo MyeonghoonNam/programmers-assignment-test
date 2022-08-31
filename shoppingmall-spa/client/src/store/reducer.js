@@ -1,4 +1,5 @@
 import { SELECT_CHANGE, PRODUCT_QUANTITY_INPUT_CHANGE } from './action.js';
+import getCloneDeepObject from '../utils/getCloneDeepObject.js';
 
 const INITIAL_STATE = {
 	productList: [],
@@ -15,13 +16,14 @@ const reducer = (state, action) => {
 
 	switch (type) {
 		case SELECT_CHANGE: {
-			return {
-				...state,
-				selectedOptions: [...state.selectedOptions, payload],
-			};
+			const newState = getCloneDeepObject(state);
+			newState.selectedOptions.push(payload);
+
+			return newState;
 		}
+
 		case PRODUCT_QUANTITY_INPUT_CHANGE: {
-			const newState = { ...state };
+			const newState = getCloneDeepObject(state);
 			const { productItem, selectedOptions } = newState;
 
 			const selectedOptionIndex = selectedOptions.findIndex(

@@ -1,8 +1,31 @@
 import { store } from '../../../store/store.js';
 import { changeProductQuantity } from '../../../store/action.js';
+import { storage } from '../../../utils/storage.js';
 
 const ProductSelectedOptions = () => {
 	let state;
+
+	const handleClickProductOrder = (e) => {
+		const $element = e.target;
+
+		if ($element.tagName === 'BUTTON') {
+			e.preventDefault();
+
+			const { selectedOptions } = state;
+			const cart = storage.getItem('products_cart', []);
+
+			storage.setItem(
+				'products_cart',
+				cart.concat(
+					selectedOptions.map((selectedOption) => ({
+						productId: selectedOption.productId,
+						optionId: selectedOption.optionId,
+						quantity: selectedOption.quantity,
+					})),
+				),
+			);
+		}
+	};
 
 	const handleChangeProductQuantity = (e) => {
 		const $element = e.target;
@@ -19,6 +42,7 @@ const ProductSelectedOptions = () => {
 
 	const bindEvents = (target) => {
 		target.addEventListener('change', handleChangeProductQuantity);
+		target.addEventListener('click', handleClickProductOrder);
 	};
 
 	const getTotalPrice = () => {

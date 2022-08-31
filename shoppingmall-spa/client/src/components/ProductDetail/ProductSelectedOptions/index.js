@@ -1,21 +1,46 @@
+import { store } from '../../../store/store.js';
+
 const ProductSelectedOptions = () => {
+	let state;
+
+	const getTotalPrice = () => {
+		const { productItem, selectedOptions } = state;
+		const { price } = productItem;
+		const totalPrice = selectedOptions.reduce(
+			(acc, option) => acc + (price + option.optionPrice) * option.quantity,
+			0,
+		);
+
+		return totalPrice;
+	};
+
 	const render = () => {
+		const { productItem, selectedOptions } = state;
+
 		const $productSelectedOptions = document.createElement('div');
 		$productSelectedOptions.setAttribute(
 			'class',
 			'ProductDetail__selectedOptions',
 		);
+
 		$productSelectedOptions.innerHTML = `
       <h3>선택된 상품</h3>
       <ul>
+      ${selectedOptions
+				.map(
+					(selectedOption) => `
         <li>
-            커피잔 100개 번들 10,000원 <div><input type="number" value="10">개</div>
+          ${selectedOption.optionName} ${
+						productItem.price + selectedOption.optionPrice
+					}원 <div><input type="number" value="${
+						selectedOption.quantity
+					}">개</div>
         </li>
-        <li>
-            커피잔 1000개 번들 15,000원 <div><input type="number" value="5">개</div>
-        </li>
+      `,
+				)
+				.join('')}
       </ul>
-      <div class="ProductDetail__totalPrice">175,000원</div>
+      <div class="ProductDetail__totalPrice">${getTotalPrice()}원</div>
       <button class="OrderButton">주문하기</button>
     `;
 
@@ -23,6 +48,8 @@ const ProductSelectedOptions = () => {
 	};
 
 	return () => {
+		state = store.getState();
+
 		const $productSelectedOptions = render();
 		return $productSelectedOptions;
 	};

@@ -34,10 +34,14 @@ const reducer = (state, action) => {
 				(option) => option.id === payload.optionId,
 			);
 
-			selectedOptions[selectedOptionIndex].quantity =
-				productOption.stock >= payload.nextQuantity
-					? payload.nextQuantity
-					: productOption.stock;
+			if (payload.nextQuantity < 1) {
+				selectedOptions[selectedOptionIndex].quantity = 1;
+			} else {
+				selectedOptions[selectedOptionIndex].quantity =
+					productOption.stock >= payload.nextQuantity
+						? payload.nextQuantity
+						: productOption.stock;
+			}
 
 			return newState;
 		}

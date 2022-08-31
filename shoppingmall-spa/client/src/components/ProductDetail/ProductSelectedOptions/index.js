@@ -32,6 +32,15 @@ const ProductSelectedOptions = () => {
 		return totalPrice;
 	};
 
+	const getProductMaxQuantity = (selectedOption) => {
+		const { productItem } = state;
+		const productOption = productItem.productOptions.filter(
+			(option) => option.id === selectedOption.optionId,
+		)[0];
+
+		return productOption.stock;
+	};
+
 	const render = () => {
 		const { productItem, selectedOptions } = state;
 
@@ -52,7 +61,9 @@ const ProductSelectedOptions = () => {
 						productItem.price + selectedOption.optionPrice
 					}원 <div><input type="number" value="${
 						selectedOption.quantity
-					}" data-optionid=${selectedOption.optionId} min="1" >개</div>
+					}" data-optionid=${
+						selectedOption.optionId
+					} min="1" max=${getProductMaxQuantity(selectedOption)}>개</div>
         </li>
       `,
 				)

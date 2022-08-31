@@ -16,6 +16,15 @@ const Router = (routes) => {
 		}
 	});
 
+	window.addEventListener('click', (e) => {
+		const $element = e.target;
+
+		if ($element.className === 'OrderButton') {
+			store.setState();
+			routePush('/web/cart');
+		}
+	});
+
 	window.addEventListener('popstate', () => {
 		store.setState();
 		routing(window.location.pathname, 'Routing');

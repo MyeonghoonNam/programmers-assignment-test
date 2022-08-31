@@ -1,40 +1,37 @@
+import { Cart } from '../components/index.js';
+import { store } from '../store/store.js';
+
 const CartPage = () => {
-	const render = (target) => {
-		const $container = target.cloneNode();
-		$container.innerHTML = `
-      <div class="CartPage">
-        <h1>장바구니</h1>
-        <div class="Cart">
-          <ul>
-            <li class="Cart__item">
-              <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-              <div class="Cart__itemDesription">
-                <div>커피잔 100개 번들 10,000원 10개</div>
-                <div>100,000원</div>
-              </div>
-            </li>
-            <li class="Cart__item">
-              <img src="https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png">
-              <div class="Cart__itemDesription">
-                <div>커피잔 1000개 번들 15,000원 5개</div>
-                <div>75,000원</div>
-              </div>
-            </li>
-          </ul>
+	let $target;
+	let state;
 
-          <div class="Cart__totalPrice">
-            총 상품가격 175,000원
-          </div>
+	const COMPONENTS = {
+		Cart: Cart(),
+	};
 
-          <button class="OrderButton">주문하기</button>
-        </div>
-      </div>
-    `;
+	const render = () => {
+		const $container = $target.cloneNode();
+
+		const $cartPage = document.createElement('div');
+		$cartPage.setAttribute('class', 'CartPage');
+
+		const $header = document.createElement('h1');
+		$header.innerText = '장바구니';
+
+		const $cart = COMPONENTS.Cart();
+
+		$cartPage.appendChild($header);
+		$cartPage.appendChild($cart);
+
+		$container.appendChild($cartPage);
 
 		return $container;
 	};
 
 	return (target) => {
+		$target = target;
+		state = store.getState();
+
 		const $cartPage = render(target);
 		return $cartPage;
 	};

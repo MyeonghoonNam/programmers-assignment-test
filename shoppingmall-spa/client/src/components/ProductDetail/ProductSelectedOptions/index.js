@@ -1,7 +1,25 @@
 import { store } from '../../../store/store.js';
+import { changeProductQuantity } from '../../../store/action.js';
 
 const ProductSelectedOptions = () => {
 	let state;
+
+	const handleChangeProductQuantity = (e) => {
+		const $element = e.target;
+
+		if ($element.tagName === 'INPUT') {
+			const optionId = Number($element.dataset.optionid);
+			const nextQuantity = Number($element.value);
+
+			if (typeof nextQuantity === 'number') {
+				store.dispatch(changeProductQuantity({ optionId, nextQuantity }));
+			}
+		}
+	};
+
+	const bindEvents = (target) => {
+		target.addEventListener('change', handleChangeProductQuantity);
+	};
 
 	const getTotalPrice = () => {
 		const { productItem, selectedOptions } = state;
@@ -34,7 +52,7 @@ const ProductSelectedOptions = () => {
 						productItem.price + selectedOption.optionPrice
 					}원 <div><input type="number" value="${
 						selectedOption.quantity
-					}">개</div>
+					}" data-optionid=${selectedOption.optionId} min="1" >개</div>
         </li>
       `,
 				)
@@ -51,6 +69,8 @@ const ProductSelectedOptions = () => {
 		state = store.getState();
 
 		const $productSelectedOptions = render();
+		bindEvents($productSelectedOptions);
+
 		return $productSelectedOptions;
 	};
 };

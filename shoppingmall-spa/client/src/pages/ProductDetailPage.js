@@ -3,6 +3,9 @@ import { getProductItem } from '../api/fetchProductItem.js';
 import { ProductDetail } from '../components/index.js';
 
 const ProductDetailPage = () => {
+	let $target;
+	let state;
+
 	const COMPONENTS = {
 		ProductDetail: ProductDetail(),
 	};
@@ -14,17 +17,18 @@ const ProductDetailPage = () => {
 		store.setState({ productItem });
 	};
 
-	const render = ({ target, productItem }) => {
-		const $container = target.cloneNode();
+	const render = () => {
+		const { productItem } = state;
+
+		const $container = $target.cloneNode();
+
 		const $productDetailPage = document.createElement('div');
 		$productDetailPage.setAttribute('class', 'ProductDetailPage');
 
-		const { name } = productItem;
-
 		const $header = document.createElement('h1');
-		$header.innerText = `${name} 상품 정보`;
+		$header.innerText = `${productItem.name} 상품 정보`;
 
-		const $productDetail = COMPONENTS.ProductDetail({ productItem });
+		const $productDetail = COMPONENTS.ProductDetail();
 
 		$productDetailPage.appendChild($header);
 		$productDetailPage.appendChild($productDetail);
@@ -37,9 +41,10 @@ const ProductDetailPage = () => {
 	return async (target) => {
 		await fetchData();
 
-		const { productItem } = store.getState();
-		const $productDetailPage = render({ target, productItem });
+		$target = target;
+		state = store.getState();
 
+		const $productDetailPage = render();
 		return $productDetailPage;
 	};
 };

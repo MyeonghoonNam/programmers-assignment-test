@@ -11,9 +11,14 @@ const ProductDetailPage = () => {
 	};
 
 	const fetchData = async (id) => {
-		const productItem = await getProductItem(id);
+		const { productItem } = store.getState();
 
-		store.setState({ productItem });
+		if (store.isEmpty(productItem)) {
+			const data = await getProductItem(id);
+
+			Object.assign(productItem, data);
+			store.setState({ productItem });
+		}
 	};
 
 	const render = () => {

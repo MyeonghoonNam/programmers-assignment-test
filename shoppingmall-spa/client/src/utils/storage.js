@@ -9,10 +9,14 @@ const Storage = () => {
 	};
 
 	const setItem = (key, value) => {
-		window.window.localStorage.setItem(key, JSON.stringify(value));
+		window.localStorage.setItem(key, JSON.stringify(value));
 	};
 
-	return { getItem, setItem };
+	const removeItem = (key) => {
+		window.localStorage.removeItem(key);
+	};
+
+	return { getItem, setItem, removeItem };
 };
 
 export const storage = Storage();

@@ -1,4 +1,6 @@
 import { store } from '../../store/store.js';
+import { router } from '../../router/router.js';
+import { storage } from '../../utils/storage.js';
 import getNumberWithCommas from '../../utils/getNumberWithCommas.js';
 
 const Cart = () => {
@@ -14,6 +16,21 @@ const Cart = () => {
 		);
 
 		return price;
+	};
+
+	const handleClickOrderBtn = (e) => {
+		const $element = e.target;
+
+		if ($element.className === 'OrderButton') {
+			// eslint-disable-next-line no-alert
+			window.alert('주문되었습니다');
+			storage.removeItem('products_cart');
+			router.routeChange('/web/');
+		}
+	};
+
+	const bindEvents = (target) => {
+		target.addEventListener('click', handleClickOrderBtn);
 	};
 
 	const render = () => {
@@ -57,8 +74,10 @@ const Cart = () => {
 
 	return () => {
 		state = store.getState();
-		getTotalPrice();
+
 		const $cart = render();
+		bindEvents($cart);
+
 		return $cart;
 	};
 };

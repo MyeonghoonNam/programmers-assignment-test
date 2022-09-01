@@ -1,9 +1,9 @@
 import { Cart } from '../components/index.js';
-import { store } from '../store/store.js';
+import { storage } from '../utils/storage.js';
+import { router } from '../router/router.js';
 
 const CartPage = () => {
 	let $target;
-	let state;
 
 	const COMPONENTS = {
 		Cart: Cart(),
@@ -28,11 +28,20 @@ const CartPage = () => {
 		return $container;
 	};
 
-	return (target) => {
-		$target = target;
-		state = store.getState();
+	return (root) => {
+		$target = root;
 
-		const $cartPage = render(target);
+		const cart = storage.getItem('products_cart', false);
+
+		if (!cart) {
+			// eslint-disable-next-line no-alert
+			window.alert('장바구니가 비어 있습니다');
+			router.routeChange('/web/');
+
+			return false;
+		}
+
+		const $cartPage = render();
 		return $cartPage;
 	};
 };

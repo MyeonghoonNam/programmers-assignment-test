@@ -1,6 +1,7 @@
 import { store } from '../../../store/store.js';
 import { changeProductQuantity } from '../../../store/action.js';
 import { storage } from '../../../utils/storage.js';
+import { router } from '../../../router/router.js';
 
 const ProductSelectedOptions = () => {
 	let state;
@@ -24,6 +25,8 @@ const ProductSelectedOptions = () => {
 					})),
 				),
 			);
+
+			router.routeChange('/web/cart');
 		}
 	};
 

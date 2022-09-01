@@ -14,7 +14,7 @@ const CartPage = () => {
 	const fetchData = async () => {
 		const cart = storage.getItem('products_cart', false);
 
-		if (!cart) {
+		if (!cart || cart.length === 0) {
 			// eslint-disable-next-line no-alert
 			window.alert('장바구니가 비어 있습니다');
 			router.routeChange('/web/');
@@ -24,9 +24,9 @@ const CartPage = () => {
 
 		const cartProductList = await Promise.all(
 			cart.map(async (cartItem) => {
-				const productItem = await getProductItem(cartItem.id);
+				const productItem = await getProductItem(cartItem.productId);
 				const selectedOption = productItem.productOptions.find(
-					(option) => option.id === productItem.id,
+					(option) => option.id === cartItem.optionId,
 				);
 
 				return {

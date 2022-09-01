@@ -33,10 +33,10 @@ const ProductListPage = () => {
 		return $container;
 	};
 
-	return async (target) => {
+	return async (root) => {
 		await fetchData();
 
-		$target = target;
+		$target = root;
 
 		const $productListPage = render();
 		return $productListPage;

@@ -10,9 +10,8 @@ const ProductDetailPage = () => {
 		ProductDetail: ProductDetail(),
 	};
 
-	const fetchData = async () => {
-		const [, , , productId] = window.location.pathname.split('/');
-		const productItem = await getProductItem(productId);
+	const fetchData = async (id) => {
+		const productItem = await getProductItem(id);
 
 		store.setState({ productItem });
 	};
@@ -38,10 +37,10 @@ const ProductDetailPage = () => {
 		return $container;
 	};
 
-	return async (target) => {
-		await fetchData();
+	return async (root, param) => {
+		await fetchData(param);
 
-		$target = target;
+		$target = root;
 		state = store.getState();
 
 		const $productDetailPage = render();

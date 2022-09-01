@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 	productList: [],
 	productItem: {},
 	selectedOptions: [],
+	cartProductList: [],
 };
 
 const reducer = (state, action) => {

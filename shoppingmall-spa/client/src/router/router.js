@@ -8,7 +8,17 @@ const Router = () => {
 		Object.assign(ROUTES, routes);
 
 		window.addEventListener('popstate', () => {
-			routeChange(window.location.pathname);
+			const { pathname } = window.location;
+			const [, , routeName] = pathname.split('/');
+
+			if (routeName === 'products') {
+				routeChange('/web/');
+				return false;
+			}
+
+			routeChange(pathname);
+
+			return false;
 		});
 	};
 

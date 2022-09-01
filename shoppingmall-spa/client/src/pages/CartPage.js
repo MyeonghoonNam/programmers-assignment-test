@@ -32,6 +32,7 @@ const CartPage = () => {
 				return {
 					imageUrl: productItem.imageUrl,
 					productName: productItem.name,
+					productPrice: productItem.price,
 					optionName: selectedOption.name,
 					optionPrice: selectedOption.price,
 					quantity: cartItem.quantity,

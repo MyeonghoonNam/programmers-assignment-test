@@ -153,10 +153,8 @@ body {
 
 .Cart__itemDesription {
 	width: 100%;
-	align-self: center;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	flex-direction: column;
 }
 
 .Cart__totalPrice {

@@ -1,13 +1,30 @@
 import getCloneDeepObject from '../utils/getCloneDeepObject.js';
+import { SEARCH_INPUT } from './action.js';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+	serchInput: '',
+	suggestionLanguages: [],
+};
 
 const reducer = (state, action) => {
 	if (!action) {
 		return getCloneDeepObject(INITIAL_STATE);
 	}
 
-	return false;
+	const { type, payload } = action;
+
+	switch (type) {
+		case SEARCH_INPUT: {
+			const newState = {
+				...getCloneDeepObject(state),
+				...payload,
+			};
+
+			return newState;
+		}
+		default:
+			return false;
+	}
 };
 
 export { reducer };

@@ -1,20 +1,38 @@
+import { store } from '../../store/store.js';
+
 const Suggestion = () => {
+	let state;
+
 	const render = () => {
+		const { suggestionLanguages } = state;
+
 		const $suggestion = document.createElement('div');
 		$suggestion.setAttribute('class', 'Suggestion');
-		$suggestion.innerHTML = `
-      <ul>
-        <li class="Suggestion__item--selected">Action<span class="Suggestion__item--matched">Script</span></li>
-        <li>Java<span class="Suggestion__item--matched">Script</span></li>
-        <li>Type<span class="Suggestion__item--matched">Script</span></li>
-        <li>Pure<span class="Suggestion__item--matched">Script</span></li>
-      </ul>
-    `;
+
+		if (suggestionLanguages.length > 0) {
+			$suggestion.innerHTML = `
+        <ul>
+        ${suggestionLanguages
+					.map(
+						(language) => `
+            <li class="Suggestion__item--selected">
+              ${language}
+            </li>
+          `,
+					)
+					.join('')}
+        </ul>
+      `;
+		} else {
+			$suggestion.style.display = 'none';
+		}
 
 		return $suggestion;
 	};
 
 	return () => {
+		state = store.getState();
+
 		const $suggestion = render();
 		return $suggestion;
 	};

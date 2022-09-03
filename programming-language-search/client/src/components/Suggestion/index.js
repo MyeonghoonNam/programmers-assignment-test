@@ -5,22 +5,6 @@ const Suggestion = () => {
 	let $element;
 	let state;
 
-	const renderHighlight = (language) => {
-		const { keyword } = state;
-
-		const keywordReg = new RegExp(keyword, 'i');
-
-		const highlightKeyword = language.match(keywordReg)[0];
-		const highlightKeywordReg = new RegExp(highlightKeyword, 'gi');
-
-		const result = language.replace(
-			highlightKeywordReg,
-			`<span class="Suggestion__item--matched">${highlightKeyword}</span>`,
-		);
-
-		return result;
-	};
-
 	const handleKeyUpArrowAndEnter = (e) => {
 		const { currentFocusSuggestionLanguageIndex, suggestionLanguages } = state;
 
@@ -57,6 +41,18 @@ const Suggestion = () => {
 		window.addEventListener('keyup', handleKeyUpArrowAndEnter);
 	};
 
+	const renderHighlight = (language) => {
+		const { keyword } = state;
+
+		const highlightKeyword = language.match(new RegExp(keyword, 'i'))[0];
+		const result = language.replace(
+			new RegExp(keyword, 'gi'),
+			`<span class="Suggestion__item--matched">${highlightKeyword}</span>`,
+		);
+
+		return result;
+	};
+
 	const render = () => {
 		const { currentFocusSuggestionLanguageIndex, suggestionLanguages } = state;
 
@@ -89,8 +85,8 @@ const Suggestion = () => {
 	return () => {
 		state = store.getState();
 		$element = render();
-		console.log(state);
-		bindEvents($element);
+
+		bindEvents();
 
 		return $element;
 	};

@@ -1,4 +1,25 @@
 const isNodeChanged = (node1, node2) => {
+	const n1Name = node1.nodeName;
+	const n2Name = node2.nodeName;
+
+	if (n1Name !== n2Name) {
+		return true;
+	}
+
+	const n1Type = node1.nodeType;
+
+	if (n1Type !== 1) {
+		// nonElementList Check
+		const n1Value = node1.textContent;
+		const n2Value = node2.textContent;
+
+		if (n1Value !== n2Value) {
+			return true;
+		}
+
+		return false;
+	}
+
 	const n1Attributes = node1.attributes;
 	const n2Attributes = node2.attributes;
 
@@ -46,8 +67,8 @@ const applyDiff = (parentNode, realNode, virtualNode) => {
 		return;
 	}
 
-	const realNodeChildren = Array.from(realNode.children);
-	const virtualNodeChildren = Array.from(virtualNode.children);
+	const realNodeChildren = Array.from(realNode.childNodes);
+	const virtualNodeChildren = Array.from(virtualNode.childNodes);
 	const maxChildrenLength = Math.max(
 		realNodeChildren.length,
 		virtualNodeChildren.length,

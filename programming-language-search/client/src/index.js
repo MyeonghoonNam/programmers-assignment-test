@@ -3,7 +3,7 @@ import applyDiff from './lib/applyDiff.js';
 import { store } from './store/store.js';
 
 const config = {
-	root: '#App',
+	root: '.App',
 };
 
 const app = App();

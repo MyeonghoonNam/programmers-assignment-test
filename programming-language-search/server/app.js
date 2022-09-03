@@ -25,6 +25,12 @@ app.use(cors());
 
 app.get("/languages", (req, res) => {
   const { keyword } = req.query;
+
+  if (!keyword) {
+    res.send([]);
+    return;
+  }
+
   const data = LANGUAGES.filter((language) =>
     language.toLowerCase().includes(keyword)
   );

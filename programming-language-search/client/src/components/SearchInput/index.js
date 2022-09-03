@@ -4,15 +4,26 @@ import { searchInput } from '../../store/action.js';
 
 const SearchInput = () => {
 	const handleChangeSearchInput = async (e) => {
+		const actionIgnoreKeys = [
+			'Enter',
+			'ArrowUp',
+			'ArrowDown',
+			'ArrowLeft',
+			'ArrowRight',
+		];
+
 		const keyword = e.target.value;
-		const suggestionLanguages = await getSearchInput(keyword);
 
-		const payload = {
-			keyword,
-			suggestionLanguages,
-		};
+		if (!actionIgnoreKeys.includes(keyword)) {
+			const suggestionLanguages = await getSearchInput(keyword);
 
-		store.dispatch(searchInput(payload));
+			const payload = {
+				keyword,
+				suggestionLanguages,
+			};
+
+			store.dispatch(searchInput(payload));
+		}
 	};
 
 	const bindEvents = (target) => {

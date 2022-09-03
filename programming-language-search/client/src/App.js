@@ -1,12 +1,16 @@
+import { SelectedLanguage } from './components/index.js';
+
 const App = () => {
+	const COMPONENTS = {
+		SelectedLanguage: SelectedLanguage(),
+	};
+
 	const render = (target) => {
 		const $container = target.cloneNode();
-		const $app = document.createElement('main');
-		$app.innerHTML = `
-      init App
-    `;
 
-		$container.appendChild($app);
+		const $selectedLanguage = COMPONENTS.SelectedLanguage();
+
+		$container.appendChild($selectedLanguage);
 
 		return $container;
 	};

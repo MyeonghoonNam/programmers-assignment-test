@@ -3,6 +3,8 @@ import { store } from '../../store/store.js';
 import { searchInput } from '../../store/action.js';
 
 const SearchInput = () => {
+	let $element;
+
 	const handleChangeSearchInput = async (e) => {
 		const actionIgnoreKeys = [
 			'Enter',
@@ -26,8 +28,8 @@ const SearchInput = () => {
 		}
 	};
 
-	const bindEvents = (target) => {
-		target
+	const bindEvents = () => {
+		$element
 			.querySelector('.SearchInput__input')
 			.addEventListener('keyup', handleChangeSearchInput);
 	};
@@ -43,10 +45,10 @@ const SearchInput = () => {
 	};
 
 	return () => {
-		const $searchInput = render();
-		bindEvents($searchInput);
+		$element = render();
+		bindEvents();
 
-		return $searchInput;
+		return $element;
 	};
 };
 

@@ -1,4 +1,6 @@
 const SelectedLanguage = () => {
+	let $element;
+
 	const render = () => {
 		const $selectedLanguage = document.createElement('div');
 		$selectedLanguage.setAttribute('class', 'SelectedLanguage');
@@ -16,8 +18,8 @@ const SelectedLanguage = () => {
 	};
 
 	return () => {
-		const $selectedLanguage = render();
-		return $selectedLanguage;
+		$element = render();
+		return $element;
 	};
 };
 

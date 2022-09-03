@@ -5,6 +5,8 @@ import {
 } from './components/index.js';
 
 const App = () => {
+	let $element;
+
 	const COMPONENTS = {
 		SelectedLanguage: SelectedLanguage(),
 		SearchInput: SearchInput(),
@@ -26,8 +28,8 @@ const App = () => {
 	};
 
 	return (target) => {
-		const $app = render(target);
-		return $app;
+		$element = render(target);
+		return $element;
 	};
 };
 

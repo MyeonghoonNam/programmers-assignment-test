@@ -3,6 +3,22 @@ import { store } from '../../store/store.js';
 const Suggestion = () => {
 	let state;
 
+	const renderHighlight = (language) => {
+		const { keyword } = state;
+
+		const keywordReg = new RegExp(keyword, 'i');
+
+		const highlightKeyword = language.match(keywordReg)[0];
+		const highlightKeywordReg = new RegExp(highlightKeyword, 'gi');
+
+		const result = language.replace(
+			highlightKeywordReg,
+			`<span class="Suggestion__item--matched">${highlightKeyword}</span>`,
+		);
+
+		return result;
+	};
+
 	const render = () => {
 		const { suggestionLanguages } = state;
 
@@ -16,7 +32,7 @@ const Suggestion = () => {
 					.map(
 						(language) => `
             <li class="Suggestion__item--selected">
-              ${language}
+              ${renderHighlight(language)}
             </li>
           `,
 					)

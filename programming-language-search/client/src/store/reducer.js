@@ -2,7 +2,7 @@ import getCloneDeepObject from '../utils/getCloneDeepObject.js';
 import { SEARCH_INPUT } from './action.js';
 
 const INITIAL_STATE = {
-	serchInput: '',
+	keyword: '',
 	suggestionLanguages: [],
 };
 

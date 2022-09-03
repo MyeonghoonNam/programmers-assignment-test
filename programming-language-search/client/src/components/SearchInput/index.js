@@ -4,11 +4,11 @@ import { searchInput } from '../../store/action.js';
 
 const SearchInput = () => {
 	const handleChangeSearchInput = async (e) => {
-		const serchInput = e.target.value;
-		const suggestionLanguages = await getSearchInput(serchInput);
+		const keyword = e.target.value;
+		const suggestionLanguages = await getSearchInput(keyword);
 
 		const payload = {
-			serchInput,
+			keyword,
 			suggestionLanguages,
 		};
 

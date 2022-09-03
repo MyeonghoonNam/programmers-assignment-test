@@ -1,18 +1,21 @@
-import { SelectedLanguage } from './components/index.js';
+import { SelectedLanguage, SearchInput } from './components/index.js';
 
 const App = () => {
 	const COMPONENTS = {
 		SelectedLanguage: SelectedLanguage(),
+		SearchInput: SearchInput(),
 	};
 
 	const render = (target) => {
-		const $container = target.cloneNode();
+		const $app = target.cloneNode();
 
 		const $selectedLanguage = COMPONENTS.SelectedLanguage();
+		const $searchInput = COMPONENTS.SearchInput();
 
-		$container.appendChild($selectedLanguage);
+		$app.appendChild($selectedLanguage);
+		$app.appendChild($searchInput);
 
-		return $container;
+		return $app;
 	};
 
 	return (target) => {

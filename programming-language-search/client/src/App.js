@@ -1,9 +1,14 @@
-import { SelectedLanguage, SearchInput } from './components/index.js';
+import {
+	SelectedLanguage,
+	SearchInput,
+	Suggestion,
+} from './components/index.js';
 
 const App = () => {
 	const COMPONENTS = {
 		SelectedLanguage: SelectedLanguage(),
 		SearchInput: SearchInput(),
+		Suggestion: Suggestion(),
 	};
 
 	const render = (target) => {
@@ -11,9 +16,11 @@ const App = () => {
 
 		const $selectedLanguage = COMPONENTS.SelectedLanguage();
 		const $searchInput = COMPONENTS.SearchInput();
+		const $suggestion = COMPONENTS.Suggestion();
 
 		$app.appendChild($selectedLanguage);
 		$app.appendChild($searchInput);
+		$app.appendChild($suggestion);
 
 		return $app;
 	};

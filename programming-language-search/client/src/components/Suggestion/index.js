@@ -123,7 +123,7 @@ const Suggestion = () => {
 		$element = render();
 
 		bindEvents();
-		console.log(state);
+
 		return $element;
 	};
 };

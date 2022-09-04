@@ -1,5 +1,6 @@
 import { store } from '../../store/store.js';
 import { keyupArrowSuggestion, selectLanguage } from '../../store/action.js';
+import getClosestElement from '../../utils/getClosestElement.js';
 
 const Suggestion = () => {
 	let $element;
@@ -7,7 +8,10 @@ const Suggestion = () => {
 
 	const handleClickSuggestion = (e) => {
 		const { suggestionLanguages } = state;
-		const { index } = e.target.dataset;
+
+		const $liElement = getClosestElement(e.target, 'li');
+
+		const { index } = $liElement.dataset;
 		const language = suggestionLanguages[index];
 
 		const payload = {
@@ -72,6 +76,7 @@ const Suggestion = () => {
 
 	const bindEvents = () => {
 		window.addEventListener('keyup', handleKeyUpArrowAndEnter);
+
 		$element
 			.querySelector('ul')
 			?.addEventListener('click', handleClickSuggestion);

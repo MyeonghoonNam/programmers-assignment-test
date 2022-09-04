@@ -5,6 +5,20 @@ const Suggestion = () => {
 	let $element;
 	let state;
 
+	const handleClickSuggestion = (e) => {
+		const { suggestionLanguages } = state;
+		const { index } = e.target.dataset;
+		const language = suggestionLanguages[index];
+
+		const payload = {
+			language,
+		};
+
+		// eslint-disable-next-line no-alert
+		window.alert(language);
+		store.dispatch(selectLanguage(payload));
+	};
+
 	const handleKeyUpArrowAndEnter = (e) => {
 		const { currentFocusSuggestionLanguageIndex, suggestionLanguages } = state;
 
@@ -58,6 +72,9 @@ const Suggestion = () => {
 
 	const bindEvents = () => {
 		window.addEventListener('keyup', handleKeyUpArrowAndEnter);
+		$element
+			.querySelector('ul')
+			?.addEventListener('click', handleClickSuggestion);
 	};
 
 	const renderHighlight = (language) => {
@@ -88,7 +105,7 @@ const Suggestion = () => {
 							index === currentFocusSuggestionLanguageIndex
 								? 'class="Suggestion__item--selected"'
 								: ''
-						}>${renderHighlight(language)}</li>
+						} data-index=${index}>${renderHighlight(language)}</li>
           `,
 					)
 					.join('')}
@@ -106,7 +123,7 @@ const Suggestion = () => {
 		$element = render();
 
 		bindEvents();
-
+		console.log(state);
 		return $element;
 	};
 };

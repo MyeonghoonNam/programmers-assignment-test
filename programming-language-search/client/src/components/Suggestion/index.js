@@ -1,5 +1,5 @@
 import { store } from '../../store/store.js';
-import { keyupSuggestion } from '../../store/action.js';
+import { keyupArrowSuggestion } from '../../store/action.js';
 
 const Suggestion = () => {
 	let $element;
@@ -10,7 +10,7 @@ const Suggestion = () => {
 
 		if (suggestionLanguages.length > 0) {
 			const { key } = e;
-			const actionKeys = ['ArrowUp', 'ArrowDown'];
+			const actionKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
 			const lastSuggestionLanguageIndex = suggestionLanguages.length - 1;
 			let nextFocusSuggestionLanguageIndex =
 				currentFocusSuggestionLanguageIndex;
@@ -33,7 +33,7 @@ const Suggestion = () => {
 				index: nextFocusSuggestionLanguageIndex,
 			};
 
-			store.dispatch(keyupSuggestion(payload));
+			store.dispatch(keyupArrowSuggestion(payload));
 		}
 	};
 

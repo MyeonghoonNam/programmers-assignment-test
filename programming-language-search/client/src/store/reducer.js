@@ -1,5 +1,5 @@
 import getCloneDeepObject from '../utils/getCloneDeepObject.js';
-import { SEARCH_INPUT, KEYUP_SUGGESTION } from './action.js';
+import { SEARCH_INPUT, KEYUP_ARROW_SUGGESTION } from './action.js';
 
 const INITIAL_STATE = {
 	keyword: '',
@@ -24,7 +24,7 @@ const reducer = (state, action) => {
 			return newState;
 		}
 
-		case KEYUP_SUGGESTION: {
+		case KEYUP_ARROW_SUGGESTION: {
 			const newState = {
 				...getCloneDeepObject(state),
 				currentFocusSuggestionLanguageIndex: payload.index,

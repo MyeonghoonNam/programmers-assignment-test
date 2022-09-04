@@ -24,6 +24,7 @@ const reducer = (state, action) => {
 			const newState = {
 				...getCloneDeepObject(state),
 				...payload,
+				currentFocusSuggestionLanguageIndex: 0,
 			};
 
 			return newState;

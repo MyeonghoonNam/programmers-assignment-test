@@ -38,7 +38,7 @@ const SearchInput = () => {
 		const $searchInput = document.createElement('form');
 		$searchInput.setAttribute('class', 'SearchInput');
 		$searchInput.innerHTML = `
-      <input class="SearchInput__input" type="text" placeholder="프로그램 언어를 입력하세요.">
+      <input class="SearchInput__input" type="text" autofocus placeholder="프로그램 언어를 입력하세요.">
     `;
 
 		return $searchInput;

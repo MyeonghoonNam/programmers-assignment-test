@@ -44,6 +44,10 @@ const reducer = (state, action) => {
 				selectedLanguages: state.selectedLanguages.concat(payload.language),
 			};
 
+			if (newState.selectedLanguages.length > 5) {
+				newState.selectedLanguages.shift();
+			}
+
 			return newState;
 		}
 

@@ -1,16 +1,23 @@
+import { store } from '../../store/store.js';
+
 const SelectedLanguage = () => {
 	let $element;
+	let state;
 
 	const render = () => {
+		const { selectedLanguages } = state;
+
 		const $selectedLanguage = document.createElement('div');
 		$selectedLanguage.setAttribute('class', 'SelectedLanguage');
 		$selectedLanguage.innerHTML = `
       <ul>
-        <li>JavaScript</li>
-        <li>Python</li>
-        <li>Elixir</li>
-        <li>Java</li>
-        <li>PHP</li>
+      ${selectedLanguages
+				.map(
+					(language) => `
+        <li>${language}</li>
+      `,
+				)
+				.join('')}
       </ul>
     `;
 
@@ -18,7 +25,9 @@ const SelectedLanguage = () => {
 	};
 
 	return () => {
+		state = store.getState();
 		$element = render();
+
 		return $element;
 	};
 };

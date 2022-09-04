@@ -1,6 +1,7 @@
 import { getSearchInput } from '../../api/fetchLanguage.js';
 import { store } from '../../store/store.js';
 import { searchInput } from '../../store/action.js';
+import { debounce } from '../../lib/debounce.js';
 
 const SearchInput = () => {
 	let $element;
@@ -19,7 +20,7 @@ const SearchInput = () => {
 		];
 
 		const keyword = e.target.value;
-
+		console.log(keyword);
 		if (!actionIgnoreKeys.includes(keyword)) {
 			const suggestionLanguages = await getSearchInput(keyword);
 
@@ -35,7 +36,7 @@ const SearchInput = () => {
 	const bindEvents = () => {
 		$element
 			.querySelector('.SearchInput__input')
-			.addEventListener('keyup', handleChangeSearchInput);
+			.addEventListener('keyup', debounce(handleChangeSearchInput, 500));
 
 		$element.addEventListener('submit', handleSubmitForm);
 	};

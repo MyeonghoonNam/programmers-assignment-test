@@ -1,5 +1,5 @@
 import { store } from '../../store/store.js';
-import { keyupArrowSuggestion } from '../../store/action.js';
+import { keyupArrowSuggestion, selectLanguage } from '../../store/action.js';
 
 const Suggestion = () => {
 	let $element;
@@ -10,7 +10,7 @@ const Suggestion = () => {
 
 		if (suggestionLanguages.length > 0) {
 			const { key } = e;
-			const actionKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
+			const actionKeys = ['ArrowUp', 'ArrowDown'];
 			const lastSuggestionLanguageIndex = suggestionLanguages.length - 1;
 			let nextFocusSuggestionLanguageIndex =
 				currentFocusSuggestionLanguageIndex;
@@ -21,19 +21,38 @@ const Suggestion = () => {
 						currentFocusSuggestionLanguageIndex === 0
 							? lastSuggestionLanguageIndex
 							: currentFocusSuggestionLanguageIndex - 1;
+
+					const payload = {
+						index: nextFocusSuggestionLanguageIndex,
+					};
+
+					store.dispatch(keyupArrowSuggestion(payload));
 				} else if (key === 'ArrowDown') {
 					nextFocusSuggestionLanguageIndex =
 						currentFocusSuggestionLanguageIndex === lastSuggestionLanguageIndex
 							? 0
 							: currentFocusSuggestionLanguageIndex + 1;
 				}
+
+				const payload = {
+					index: nextFocusSuggestionLanguageIndex,
+				};
+
+				store.dispatch(keyupArrowSuggestion(payload));
 			}
 
-			const payload = {
-				index: nextFocusSuggestionLanguageIndex,
-			};
+			if (key === 'Enter') {
+				const language =
+					suggestionLanguages[currentFocusSuggestionLanguageIndex];
 
-			store.dispatch(keyupArrowSuggestion(payload));
+				const payload = {
+					language,
+				};
+
+				// eslint-disable-next-line no-alert
+				window.alert(language);
+				store.dispatch(selectLanguage(payload));
+			}
 		}
 	};
 

@@ -1,3 +1,5 @@
+const CACHE = {};
+
 const parseResponse = async (response) => {
 	const { status } = response;
 	let data;
@@ -12,6 +14,11 @@ const parseResponse = async (response) => {
 const request = async (params) => {
 	try {
 		const { url, method = 'GET', headers = {}, body } = params;
+
+		if (CACHE[url]) {
+			return CACHE[url];
+		}
+
 		const config = {
 			method,
 			headers,
@@ -24,7 +31,10 @@ const request = async (params) => {
 		const response = await fetch(url, config);
 
 		if (response.ok) {
-			return parseResponse(response);
+			const res = await parseResponse(response);
+			CACHE[url] = res;
+
+			return res;
 		}
 
 		throw new Error('API 오류');

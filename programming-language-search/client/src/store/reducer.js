@@ -39,10 +39,19 @@ const reducer = (state, action) => {
 		}
 
 		case SELECT_LANGUAGE: {
+			const { language } = payload;
+
 			const newState = {
 				...getCloneDeepObject(state),
-				selectedLanguages: state.selectedLanguages.concat(payload.language),
 			};
+
+			if (newState.selectedLanguages.includes(language)) {
+				newState.selectedLanguages = newState.selectedLanguages.filter(
+					(l) => l !== language,
+				);
+			}
+
+			newState.selectedLanguages = newState.selectedLanguages.concat(language);
 
 			if (newState.selectedLanguages.length > 5) {
 				newState.selectedLanguages.shift();

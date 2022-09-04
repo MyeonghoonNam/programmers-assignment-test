@@ -21,7 +21,7 @@ const SearchInput = () => {
 
 		const keyword = e.target.value;
 
-		if (!actionIgnoreKeys.includes(keyword)) {
+		if (!actionIgnoreKeys.includes(e.key)) {
 			const suggestionLanguages = await getSearchInput(keyword);
 
 			const payload = {

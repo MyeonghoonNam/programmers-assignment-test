@@ -3,6 +3,8 @@ import {
 	SearchInput,
 	Suggestion,
 } from './components/index.js';
+import { store } from './store/store.js';
+import { storage } from './lib/storage.js';
 
 const App = () => {
 	let $element;
@@ -11,6 +13,14 @@ const App = () => {
 		SelectedLanguage: SelectedLanguage(),
 		SearchInput: SearchInput(),
 		Suggestion: Suggestion(),
+	};
+
+	const setup = () => {
+		const payload = storage.getItem('state');
+
+		if (payload) {
+			store.setState(payload);
+		}
 	};
 
 	const render = (target) => {
@@ -26,6 +36,8 @@ const App = () => {
 
 		return $app;
 	};
+
+	setup();
 
 	return (target) => {
 		$element = render(target);

@@ -1,5 +1,6 @@
 import { reducer } from './reducer.js';
 import getCloneDeepObject from '../utils/getCloneDeepObject.js';
+import { storage } from '../lib/storage.js';
 
 const CreateStore = () => {
 	const listeners = [];
@@ -17,6 +18,8 @@ const CreateStore = () => {
 	const dispatch = (action) => {
 		const newState = reducer(state, action);
 		state = newState;
+		storage.setITem('state', state);
+
 		publish();
 	};
 

@@ -12,7 +12,7 @@ const Storage = () => {
 		}
 	};
 
-	const setITem = (key, value) => {
+	const setItem = (key, value) => {
 		try {
 			storage.setItem(key, JSON.stringify(value));
 		} catch (e) {
@@ -21,7 +21,7 @@ const Storage = () => {
 		}
 	};
 
-	return { getItem, setITem };
+	return { getItem, setItem };
 };
 
 export const storage = Storage();

@@ -18,7 +18,7 @@ const CreateStore = () => {
 	const dispatch = (action) => {
 		const newState = reducer(state, action);
 		state = newState;
-		storage.setITem('state', state);
+		storage.setItem('state', state);
 
 		publish();
 	};

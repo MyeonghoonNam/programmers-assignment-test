@@ -5,6 +5,10 @@ import { searchInput } from '../../store/action.js';
 const SearchInput = () => {
 	let $element;
 
+	const handleSubmitForm = (e) => {
+		e.preventDefault();
+	};
+
 	const handleChangeSearchInput = async (e) => {
 		const actionIgnoreKeys = [
 			'Enter',
@@ -32,6 +36,8 @@ const SearchInput = () => {
 		$element
 			.querySelector('.SearchInput__input')
 			.addEventListener('keyup', handleChangeSearchInput);
+
+		$element.addEventListener('submit', handleSubmitForm);
 	};
 
 	const render = () => {

@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/languages", (req, res) => {
-  const { keyword } = req.query;
+  const keyword = req.query.keyword?.toLowerCase();
 
   if (!keyword) {
     res.send([]);

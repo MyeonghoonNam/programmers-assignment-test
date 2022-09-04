@@ -37,18 +37,26 @@ const SearchInput = () => {
 	const bindEvents = () => {
 		$element
 			.querySelector('.SearchInput__input')
-			.addEventListener('keyup', debounce(handleChangeSearchInput, 500));
+			.addEventListener('keyup', debounce(handleChangeSearchInput, 300));
 
 		$element.addEventListener('submit', handleSubmitForm);
 	};
 
-	const render = () => {
+	const focusInput = () => {
 		const { keyword } = state;
 
+		const $input = $element.querySelector('.SearchInput__input');
+		const value = keyword;
+
+		$input.focus();
+		$input.value = value;
+	};
+
+	const render = () => {
 		const $searchInput = document.createElement('form');
 		$searchInput.setAttribute('class', 'SearchInput');
 		$searchInput.innerHTML = `
-      <input class="SearchInput__input" type="text" value="${keyword}" autofocus placeholder="프로그램 언어를 입력하세요.">
+      <input class="SearchInput__input" type="text" placeholder="프로그램 언어를 입력하세요." autofocus />
     `;
 
 		return $searchInput;
@@ -58,6 +66,7 @@ const SearchInput = () => {
 		state = store.getState();
 		$element = render();
 
+		focusInput();
 		bindEvents();
 
 		return $element;

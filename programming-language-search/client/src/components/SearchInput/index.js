@@ -23,12 +23,15 @@ const SearchInput = () => {
 		const keyword = e.target.value;
 
 		if (!actionIgnoreKeys.includes(e.key)) {
-			const suggestionLanguages = await getSearchInput(keyword);
-
 			const payload = {
 				keyword,
-				suggestionLanguages,
+				suggestionLanguages: [],
 			};
+
+			if (keyword.length !== 0) {
+				const suggestionLanguages = await getSearchInput(keyword);
+				payload.suggestionLanguages = suggestionLanguages;
+			}
 
 			store.dispatch(searchInput(payload));
 		}

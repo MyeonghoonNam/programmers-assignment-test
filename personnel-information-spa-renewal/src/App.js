@@ -1,6 +1,7 @@
 import Header from "./components/Header.js";
 import HomePage from "./page/HomePage.js";
 import SignupPage from "./page/SignupPage.js";
+import { getPersonalInfo } from "./api/index.js";
 
 class App {
   constructor(container) {
@@ -8,7 +9,7 @@ class App {
     this.render();
   }
 
-  render() {
+  async render() {
     const $header = new Header(this.$container);
     $header.render();
 
@@ -36,6 +37,11 @@ class App {
         default:
       }
     });
+
+    if (!localStorage.getItem("personalInfo")) {
+      const data = await getPersonalInfo();
+      localStorage.setItem("personalInfo", JSON.stringify(data));
+    }
   }
 }
 

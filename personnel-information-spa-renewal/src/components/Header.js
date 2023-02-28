@@ -32,6 +32,26 @@ class Header {
     $header.appendChild($signup_menu);
 
     this.$container.appendChild($header);
+
+    $home_menu.addEventListener("click", () => {
+      window.history.pushState("", "", "/web/");
+
+      const urlChange = new CustomEvent("urlChange", {
+        detail: { href: "/web/" },
+      });
+
+      document.dispatchEvent(urlChange);
+    });
+
+    $signup_menu.addEventListener("click", () => {
+      window.history.pushState("", "", "/web/signup");
+
+      const urlChange = new CustomEvent("urlChange", {
+        detail: { href: "/web/signup" },
+      });
+
+      document.dispatchEvent(urlChange);
+    });
   }
 }
 

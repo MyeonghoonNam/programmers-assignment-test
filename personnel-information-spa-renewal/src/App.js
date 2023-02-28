@@ -1,3 +1,5 @@
+import Header from "./components/Header.js";
+
 class App {
   constructor(container) {
     this.$container = container;
@@ -5,10 +7,9 @@ class App {
   }
 
   render() {
-    const div = document.createElement("div");
-    div.innerHTML = "init";
+    const $header = new Header(this.$container);
 
-    this.$container.appendChild(div);
+    $header.render();
   }
 }
 

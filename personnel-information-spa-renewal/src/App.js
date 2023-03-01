@@ -10,6 +10,13 @@ class App {
   }
 
   async render() {
+    if (!localStorage.getItem("personalInfo")) {
+      let data = await getPersonalInfo();
+
+      data.map((info, idx) => (info.idx = String(idx + 1)));
+      localStorage.setItem("personalInfo", JSON.stringify(data));
+    }
+
     const $header = new Header(this.$container);
     $header.render();
 
@@ -37,11 +44,6 @@ class App {
         default:
       }
     });
-
-    if (!localStorage.getItem("personalInfo")) {
-      const data = await getPersonalInfo();
-      localStorage.setItem("personalInfo", JSON.stringify(data));
-    }
   }
 }
 

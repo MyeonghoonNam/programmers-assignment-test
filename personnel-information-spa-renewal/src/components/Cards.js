@@ -10,6 +10,11 @@ class Cards {
     const $div = document.createElement("div");
     $div.setAttribute("id", "cards_container");
 
+    $div.addEventListener("click", (e) => {
+      const $card = e.target.closest(".card");
+      $card.classList.toggle("is-flipped");
+    });
+
     this.personalInfo.forEach(({ idx, nickname, mbti }) => {
       const card = new Card($div, idx, nickname, mbti);
       card.render();

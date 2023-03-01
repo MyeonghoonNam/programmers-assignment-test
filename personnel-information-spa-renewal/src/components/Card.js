@@ -19,9 +19,17 @@ class Card {
   }
 
   render() {
+    const cardStatus = JSON.parse(localStorage.getItem("cardStatus")) || [];
+    const index = this.idx - 1;
+
+    if (!cardStatus[index]) {
+      cardStatus.push({ idx: this.idx, status: "card" });
+      localStorage.setItem("cardStatus", JSON.stringify(cardStatus));
+    }
+
     const $div = document.createElement("div");
-    $div.setAttribute("idx", this.idx);
-    $div.setAttribute("class", "card");
+    $div.setAttribute("idx", cardStatus[index].idx);
+    $div.setAttribute("class", cardStatus[index].status);
 
     const $front = this.createCardPlaneElement("front", this.nickname);
     const $back = this.createCardPlaneElement("back", this.mbti);

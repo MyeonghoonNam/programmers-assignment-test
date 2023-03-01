@@ -12,7 +12,17 @@ class Cards {
 
     $div.addEventListener("click", (e) => {
       const $card = e.target.closest(".card");
+
+      if (!$card) return;
+
       $card.classList.toggle("is-flipped");
+
+      const idx = $card.getAttribute("idx") - 1;
+      const status = $card.getAttribute("class");
+      const cardStatus = JSON.parse(localStorage.getItem("cardStatus"));
+
+      cardStatus[idx].status = status;
+      localStorage.setItem("cardStatus", JSON.stringify(cardStatus));
     });
 
     this.personalInfo.forEach(({ idx, nickname, mbti }) => {

@@ -9,13 +9,17 @@ class App {
     this.render();
   }
 
-  async render() {
+  async setStorage() {
     if (!localStorage.getItem("personalInfo")) {
       let data = await getPersonalInfo();
 
-      data.map((info, idx) => (info.idx = String(idx + 1)));
+      data = data.map((info, idx) => Object.assign({ idx: String(idx) }, info));
       localStorage.setItem("personalInfo", JSON.stringify(data));
     }
+  }
+
+  async render() {
+    await this.setStorage();
 
     const $header = new Header(this.$container);
     $header.render();

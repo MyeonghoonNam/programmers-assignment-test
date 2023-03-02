@@ -20,7 +20,8 @@ class Card {
 
   render() {
     const cardStatus = JSON.parse(localStorage.getItem("cardStatus")) || [];
-    const index = this.idx - 1;
+    // const index = this.idx - 1;
+    const index = this.idx;
 
     if (!cardStatus[index]) {
       cardStatus.push({ idx: this.idx, status: "card" });

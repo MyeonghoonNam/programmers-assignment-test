@@ -59,7 +59,7 @@ class Cards {
 
       $card.classList.toggle("is-flipped");
 
-      const idx = $card.getAttribute("idx") - 1;
+      const idx = $card.getAttribute("idx");
       const status = $card.getAttribute("class");
       const cardStatus = JSON.parse(localStorage.getItem("cardStatus"));
 

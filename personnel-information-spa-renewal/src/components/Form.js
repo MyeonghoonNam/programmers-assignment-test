@@ -24,6 +24,31 @@ class Form {
     $input.setAttribute("id", id);
     $input.setAttribute("placeholder", placeholder);
 
+    if (id === "name") {
+      const regexp = "^[가-힣]{2,4}$";
+      const title = "2~4 글자의 한글만 입력이 가능합니다.";
+
+      $input.setAttribute("pattern", regexp);
+      $input.setAttribute("title", title);
+    }
+
+    if (id === "email") {
+      const regexp = "^[a-zA-Z0-9]*@grepp.co$";
+      const title =
+        "이메일 ID는 영문(대소문자 구분 없음)과 숫자만 입력이 가능하며, @grepp.co 형식의 이메일만 입력이 가능합니다.";
+
+      $input.setAttribute("pattern", regexp);
+      $input.setAttribute("title", title);
+    }
+
+    if (id === "nickname") {
+      const regexp = "^[a-zA-z]{3,10}$";
+      const title = "대소문자 구분 없이 3~10 글자의 영문만 입력이 가능합니다.";
+
+      $input.setAttribute("pattern", regexp);
+      $input.setAttribute("title", title);
+    }
+
     if (required) {
       $input.setAttribute("required", "");
       $label.appendChild(this.createMarkElement("(필수*)"));
@@ -91,6 +116,9 @@ class Form {
   render() {
     const $div = document.createElement("div");
     $div.setAttribute("id", "form_container");
+
+    const $form = document.createElement("form");
+    $form.setAttribute("id", "form");
 
     const $name = this.createInputElement("text", "name", "이름", "이름", true);
     const $email = this.createInputElement(
@@ -174,12 +202,14 @@ class Form {
 
     const $button = this.createButtonElement("등록");
 
-    $div.appendChild($name);
-    $div.appendChild($email);
-    $div.appendChild($nickName);
-    $div.appendChild($jop);
-    $div.appendChild($mbti);
-    $div.appendChild($button);
+    $form.appendChild($name);
+    $form.appendChild($email);
+    $form.appendChild($nickName);
+    $form.appendChild($jop);
+    $form.appendChild($mbti);
+    $form.appendChild($button);
+
+    $div.appendChild($form);
 
     this.$container.appendChild($div);
   }

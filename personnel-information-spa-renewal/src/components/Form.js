@@ -23,6 +23,7 @@ class Form {
     $input.setAttribute("type", type);
     $input.setAttribute("id", id);
     $input.setAttribute("placeholder", placeholder);
+    $input.setAttribute("value", "");
 
     if (id === "name") {
       const regexp = "^[가-힣]{2,4}$";
@@ -146,22 +147,22 @@ class Form {
 
     const mbtiOptionValueList = [
       "",
-      "enfj",
-      "entj",
-      "enfp",
-      "entp",
-      "esfj",
-      "estj",
-      "esfp",
-      "estp",
-      "infj",
-      "intj",
-      "infp",
-      "intp",
-      "isfj",
-      "istj",
-      "isfp",
-      "istp",
+      "ENFJ",
+      "ENTJ",
+      "ENFP",
+      "ENTP",
+      "ESFJ",
+      "ESTJ",
+      "ESFP",
+      "ESTP",
+      "INFJ",
+      "INTJ",
+      "INFP",
+      "INTP",
+      "ISFJ",
+      "ISTJ",
+      "ISFP",
+      "ISTP",
     ];
 
     const mbtiOptionTextList = [
@@ -208,6 +209,60 @@ class Form {
     $form.appendChild($jop);
     $form.appendChild($mbti);
     $form.appendChild($button);
+
+    $form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const { name, email, nickname, role, mbti } = e.target;
+      const personalInfo = JSON.parse(localStorage.getItem("personalInfo"));
+
+      const roleMap = {
+        backend: "백엔드",
+        frontend: "프론트엔드",
+        fullstack: "풀스택",
+      };
+
+      const idxValue = String(personalInfo.length);
+      const nameValue = name.value;
+      const emailValue = email.value;
+      const nicknameValue = nickname.value;
+      const roleValue = roleMap[role.value];
+      const mbtiValue = mbti.value;
+
+      for (let i = 0; i < personalInfo.length; i++) {
+        const info = personalInfo[i];
+
+        if (info.email === emailValue || info.nickname === nicknameValue) {
+          alert("이메일 혹은 닉네임이 이미 등록되어 있습니다.");
+          return;
+        }
+      }
+
+      const submitPersonalInfo = {
+        idx: idxValue,
+        name: nameValue,
+        email: emailValue,
+        nickname: nicknameValue,
+        role: roleValue,
+        mbti: mbtiValue,
+      };
+
+      const inputList = e.target.querySelectorAll("input");
+
+      inputList.forEach((input) => {
+        input.value = "";
+      });
+
+      const selectList = e.target.querySelectorAll("select");
+
+      selectList.forEach((select) => {
+        select.value = "";
+      });
+
+      personalInfo.push(submitPersonalInfo);
+      localStorage.setItem("personalInfo", JSON.stringify(personalInfo));
+      alert("성공적으로 등록되었습니다.");
+    });
 
     $div.appendChild($form);
 

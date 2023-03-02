@@ -111,6 +111,17 @@ header {
   margin: 0.75em auto;
 }
 
+.form_elem label {
+  display: flex;
+  padding: 3px 5px;
+  font-size: 0.7em;
+  color: #5a5c66;
+}
+
+.form_elem mark {
+  color: #ff0000;
+}
+
 .form_elem input {
   width: 100%;
   padding: 1em;
@@ -118,6 +129,8 @@ header {
   border-radius: 1rem;
   box-sizing: border-box;
   background: none;
+  font-size: 1em;
+  color: #5a5c66;
 }
 
 .form_elem select {
@@ -127,6 +140,8 @@ header {
   border-radius: 1rem;
   box-sizing: border-box;
   background: none;
+  font-size: 1em;
+  color: #5a5c66;
 }
 
 .form_elem button {
@@ -135,5 +150,12 @@ header {
   border: 0;
   border-radius: 1rem;
   box-sizing: border-box;
-  background: #dedede;
+  background: #29323c;
+  font-size: 1em;
+  color: white;
+}
+
+.form_elem button:hover {
+  cursor: pointer;
+  background: #637488;
 }

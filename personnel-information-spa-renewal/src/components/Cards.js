@@ -19,22 +19,17 @@ class Cards {
           if (this.personalInfo[this.nextCardIndex]) {
             const { idx, nickname, mbti } =
               this.personalInfo[this.nextCardIndex];
-            const card = new Card(container, idx, nickname, mbti);
+            const card = new Card({ container, idx, nickname, mbti });
 
             card.render();
             this.nextCardIndex++;
-          }
 
-          target = container.lastChild;
-
-          if (this.nextCardIndex !== this.totalCardCount) {
+            target = container.lastChild;
             observer.observe(target);
           }
         }
       },
-      {
-        threshold: 0.7,
-      }
+      { threshold: 0.7 }
     );
 
     io.observe(target);

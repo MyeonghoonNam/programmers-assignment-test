@@ -15,7 +15,7 @@ class Cards {
 
     const io = new IntersectionObserver(
       (entry, observer) => {
-        if (entry[0].isIntersecting) {
+        if (entry[entry.length - 1].isIntersecting) {
           observer.unobserve(target);
 
           for (
@@ -48,7 +48,7 @@ class Cards {
     io.observe(target);
   }
 
-  render() {
+  async render() {
     const $div = document.createElement("div");
     $div.setAttribute("id", "cards_container");
 

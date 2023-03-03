@@ -4,10 +4,8 @@ class Cards {
   constructor(container) {
     this.$container = container;
     this.personalInfo = JSON.parse(localStorage.getItem("personalInfo"));
-    this.cardIncrementInterval = 4;
-    this.cardIncrementIntervalCount = 2;
-    this.currentCardCount = 0;
     this.totalCardCount = this.personalInfo.length;
+    this.nextCardIndex = 0;
   }
 
   infiniteScroll(container) {
@@ -18,24 +16,18 @@ class Cards {
         if (entry[entry.length - 1].isIntersecting) {
           observer.unobserve(target);
 
-          for (
-            let i = this.currentCardCount;
-            i < this.cardIncrementInterval * this.cardIncrementIntervalCount;
-            i++
-          ) {
-            if (this.personalInfo[i]) {
-              const { idx, nickname, mbti } = this.personalInfo[i];
-              const card = new Card(container, idx, nickname, mbti);
+          if (this.personalInfo[this.nextCardIndex]) {
+            const { idx, nickname, mbti } =
+              this.personalInfo[this.nextCardIndex];
+            const card = new Card(container, idx, nickname, mbti);
 
-              card.render();
-              this.currentCardCount++;
-            }
+            card.render();
+            this.nextCardIndex++;
           }
 
-          this.cardIncrementIntervalCount++;
           target = container.lastChild;
 
-          if (this.currentCardCount !== this.totalCardCount) {
+          if (this.nextCardIndex !== this.totalCardCount) {
             observer.observe(target);
           }
         }
@@ -67,15 +59,14 @@ class Cards {
       localStorage.setItem("cardStatus", JSON.stringify(cardStatus));
     });
 
-    for (let i = 0; i < this.cardIncrementInterval; i++) {
-      const { idx, nickname, mbti } = this.personalInfo[i];
-      const card = new Card($div, idx, nickname, mbti);
+    const { idx, nickname, mbti } = this.personalInfo[this.nextCardIndex];
 
-      card.render();
-      this.currentCardCount++;
-    }
+    const card = new Card($div, idx, nickname, mbti);
+    card.render();
 
+    this.nextCardIndex++;
     this.infiniteScroll($div);
+
     this.$container.appendChild($div);
   }
 }
